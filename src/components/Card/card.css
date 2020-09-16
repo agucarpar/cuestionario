@@ -1,0 +1,28 @@
+.card__wrap {
+  display: flex;
+  background-color: rgba(0, 47, 255, 0.801);
+  border: 3px solid #fff;
+  border-radius: 15px;
+  height: min-content;
+  width: 600px;
+  justify-content: space-evenly;
+}
+
+.card__question {
+  color: #fff;
+}
+
+.card__answers {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-left: 3px solid #fff;
+}
+.card__answers button {
+    color: #fff;
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+}
+
