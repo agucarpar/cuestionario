@@ -1,31 +1,52 @@
 import React, { useState } from "react";
 import Questions from "../../utils/const/questions";
-import "./card.css"
+import FinalMessage from "../FinalMessage/FinalMessage";
+import "./card.css";
 
 const Card = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [scored, setScored] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+
+  const questionsLength = Questions.length;
 
   const chekingIfCorrect = (isCorrect) => {
-    setCurrentQuestion(currentQuestion + 1);
-
-    if (isCorrect) {
-      setScored(scored + 1);
-    }
+   if(isCorrect) {
+     setScore(score+1)
+   }
+   const nextQuestion = currentQuestion + 1;
+		if (nextQuestion < questionsLength) {
+			setCurrentQuestion(nextQuestion);
+		} else {
+			setShowScore(true);
+		}
   };
+
   return (
-    <div className="card__wrap">
+    <>
+   { showScore === false ?  (<div className="card__wrap">
+        <p className="card__question">
+          {Questions[currentQuestion].questionText}
+        </p>
 
-      <p className="card__question">{Questions[currentQuestion].questionText}</p>
-
-      <div className="card__answers">
-      {Questions[currentQuestion].answersOptions.map((answer) => (
-        <button className='button_answer' onClick={() => chekingIfCorrect(answer.isCorrect)}>
-          {answer.answerText}
-        </button>
-      ))}
-      </div>
-    </div>
+        <div className="card__answers">
+          {Questions[currentQuestion].answersOptions.map((answer) => (
+            <button
+              key={answer.answerText}
+              onClick={() => chekingIfCorrect(answer.isCorrect)}
+            >
+              {answer.answerText}
+            </button>
+          ))}
+        </div>
+      </div>)
+      :
+      (<FinalMessage 
+        score={score}
+        questionsLength={questionsLength}
+      />)
+      }
+    </>
   );
 };
 
